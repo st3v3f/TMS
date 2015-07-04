@@ -5,26 +5,41 @@
 
 <script type="text/javascript">
     function GetAllTodos() {
+        ShowSpinner();
         var apiUrl = 'http://localhost:51080/api/reports/AllTodosReport';
         $.getJSON(apiUrl)
        .done(function (data) {
            WriteResponse(data);
-       })
+                HideSpinner();
+            })
        .fail(function (jqXHR, textStatus, err) {
+                HideSpinner();
            alert(jqXHR + '\n' + textStatus + '\n' + err);
        });
     }
 
     function SearchTodos() {
+        ShowSpinner();
         var searchTxt = $('#txtSearch').val();
         var apiUrl = 'http://localhost:51080/api/reports/SearchTodosReport' + '?searchString=' + searchTxt;
         $.getJSON(apiUrl)
        .done(function (data) {
            WriteResponse(data);
-       })
+                HideSpinner();
+            })
        .fail(function (jqXHR, textStatus, err) {
            alert(jqXHR + '\n' + textStatus + '\n' + err);
-       });
+                HideSpinner();
+            });
+    }
+
+    function ShowSpinner() {
+        var strSpinner = '<i class="fa fa-refresh fa-spin"></i>';
+        $("#divSpinner").html(strSpinner);
+    }
+
+    function HideSpinner() {
+        $("#divSpinner").html("");
     }
 
     function WriteResponse(todos) {
@@ -51,12 +66,13 @@
             </div>
             <div class="col-md-3">
                 <button onclick="SearchTodos();return false;">Search Todos</button>
-                <p>Enter Search term: <input type="text" id="txtSearch" /></p>
+                <p>Enter Search term: <input type="text" id="txtSearch"/>
+                </p>
             </div>
-        </div>
-        
-        
-        
+
+            <div class="col-md-3" id="divSpinner" >
+            </div>
+               
     </div>
 
 
