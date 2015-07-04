@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "TodosReports";
+}
+
+<script type="text/javascript">
+    function GetAllTodos() {
+        $.ajax({
+            url: 'http://localhost:51080/api/reports/AllTodosReport',
+            type: 'GET',
+            dataType: 'json',
+            success: function(data) {
+                WriteResponse(data);
+            },
+            error: function(x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    function SearchTodos() {
+        var searchTxt = $('#txtSearch').val();
+        $.ajax({
+            url: 'http://localhost:51080/api/reports/SearchTodosReport' + '?searchString=' + searchTxt,
+            type: 'GET',
+            dataType: 'json',
+            success: function (data) {
+                WriteResponse(data);
+            },
+            error: function (x, y, z) {
+                alert(x + '\n' + y + '\n' + z);
+            }
+        });
+    }
+
+    function WriteResponse(todos) {
+        var strResult = '<table class="table table-striped table-hover table-bordered table-condensed"><th>TodoID</th><th>Title</th><th>Description</th><th>State</th>';
+        $.each(todos, function (index, todo) {
+            strResult += "<tr><td>"  + todo.Id +
+                         "</td><td>" + todo.Title +
+                         "</td><td>" + todo.Description +
+                         "</td><td>" + todo.State +
+                         "</td></tr>";
+        });
+        strResult += "</table>";
+        $("#divResult").html(strResult);
+    }
+</script>
+
+    <h2>TodosReportA</h2>
+
+    <div id="Report Params">
+        <h3>Search Params</h3>
+        <div class="row">
+            <div class="col-md-3">
+                <button onclick="GetAllTodos();return false;">Get All Todos</button>
+            </div>
+            <div class="col-md-3">
+                <button onclick="SearchTodos();return false;">Search Todos</button>
+                <p>Enter Search term: <input type="text" id="txtSearch" /></p>
+            </div>
+        </div>
+        
+        
+        
+    </div>
+
+
+    <h3>Results</h3>
+    <div id="divResult">
+
+</div>

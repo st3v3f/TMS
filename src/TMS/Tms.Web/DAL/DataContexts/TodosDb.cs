@@ -36,8 +36,8 @@ namespace Tms.Web.DAL.DataContexts
         }
     }
 
-    public class TodosDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<TodosDb>
-    //public class TodosInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<TodoDbContext>
+    //public class TodosDbInitializer : System.Data.Entity.DropCreateDatabaseAlways<TodosDb>
+    public class TodosDbInitializer : System.Data.Entity.DropCreateDatabaseIfModelChanges<TodosDb>
     {
         protected override void Seed(TodosDb dbContext)
         {
