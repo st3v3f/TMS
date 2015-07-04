@@ -5,32 +5,26 @@
 
 <script type="text/javascript">
     function GetAllTodos() {
-        $.ajax({
-            url: 'http://localhost:51080/api/reports/AllTodosReport',
-            type: 'GET',
-            dataType: 'json',
-            success: function(data) {
-                WriteResponse(data);
-            },
-            error: function(x, y, z) {
-                alert(x + '\n' + y + '\n' + z);
-            }
-        });
+        var apiUrl = 'http://localhost:51080/api/reports/AllTodosReport';
+        $.getJSON(apiUrl)
+       .done(function (data) {
+           WriteResponse(data);
+       })
+       .fail(function (jqXHR, textStatus, err) {
+           alert(jqXHR + '\n' + textStatus + '\n' + err);
+       });
     }
 
     function SearchTodos() {
         var searchTxt = $('#txtSearch').val();
-        $.ajax({
-            url: 'http://localhost:51080/api/reports/SearchTodosReport' + '?searchString=' + searchTxt,
-            type: 'GET',
-            dataType: 'json',
-            success: function (data) {
-                WriteResponse(data);
-            },
-            error: function (x, y, z) {
-                alert(x + '\n' + y + '\n' + z);
-            }
-        });
+        var apiUrl = 'http://localhost:51080/api/reports/SearchTodosReport' + '?searchString=' + searchTxt;
+        $.getJSON(apiUrl)
+       .done(function (data) {
+           WriteResponse(data);
+       })
+       .fail(function (jqXHR, textStatus, err) {
+           alert(jqXHR + '\n' + textStatus + '\n' + err);
+       });
     }
 
     function WriteResponse(todos) {
