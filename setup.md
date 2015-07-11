@@ -22,7 +22,7 @@ In VS 2013:
   * Tms.Web - ASP.NET web application project - MVC (Include WebAPI and  Unit test project - Tms.Tests)
   * Tms.Core - For entity classes / models. - simple Class library
 
-[Note that could have had Tms.DAL but we wouldnt be able to keep DbContext for ASP.NET ApplicaitonUser in same folder as it exists in .Web project but we can't have circular project references, and we dont want to create out own user class.]
+[Note that could have had Tms.DAL but we wouldnt be able to keep DbContext for ASP.NET ApplicationUser in same folder as it exists in .Web project but we can't have circular project references, and we dont want to create out own user class.]
 
 * Add references:
   Core -> Web
