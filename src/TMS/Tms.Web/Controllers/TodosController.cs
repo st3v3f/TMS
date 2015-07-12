@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using NLog;
 using Tms.Core.Models;
 using Tms.Core.Services;
 using Tms.Web.DAL.DataContexts;
@@ -24,6 +25,9 @@ namespace Tms.Web.Controllers
         // GET: Todos
         public ActionResult Index()
         {
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Debug("Getting all todos");
+
             return View(_todoService.GetAll());
         }
 

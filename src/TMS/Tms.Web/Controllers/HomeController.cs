@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using NLog;
 
 namespace Tms.Web.Controllers
 {
@@ -10,6 +11,9 @@ namespace Tms.Web.Controllers
     {
         public ActionResult Index()
         {
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Debug("Home Controller - Index called.");
+
             return View();
         }
 

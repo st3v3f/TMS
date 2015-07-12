@@ -1,5 +1,6 @@
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
+using NLog;
 using Tms.Web.Models;
 
 namespace Tms.Web.DAL.DataContexts.IdentityMigrations
@@ -19,6 +20,8 @@ namespace Tms.Web.DAL.DataContexts.IdentityMigrations
 
         protected override void Seed(Tms.Web.DAL.DataContexts.IdentityDb context)
         {
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Debug("Seeding Identity DB");
 
             if (!(context.Users.Any(u => u.UserName == "admin@tms.com")))
             {

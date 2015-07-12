@@ -13,7 +13,7 @@ namespace Tms.Web.DAL.DataContexts
         {
             Database.SetInitializer<TodosDb>(new TodosDbInitializer());
 
-            Database.Log = sql => Debug.Write(sql);
+            //Database.Log = sql => Debug.Write(sql);
         }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)

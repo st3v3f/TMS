@@ -1,4 +1,5 @@
-﻿using System.Web.Http;
+﻿using System.Diagnostics;
+using System.Web.Http;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
@@ -6,6 +7,7 @@ using Autofac;
 using Autofac.Integration.Mvc;
 using Autofac.Integration.WebApi;
 using Newtonsoft.Json;
+using NLog;
 using Tms.Core.Services;
 using Tms.Web.DAL.DataContexts;
 
@@ -15,6 +17,11 @@ namespace Tms.Web
     {
         protected void Application_Start()
         {
+            var logger = LogManager.GetCurrentClassLogger();
+            logger.Debug("Starting app!");
+
+            Debug.WriteLine("Starting app <diagnostics>");
+
             AreaRegistration.RegisterAllAreas();
             GlobalConfiguration.Configure(WebApiConfig.Register);
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
