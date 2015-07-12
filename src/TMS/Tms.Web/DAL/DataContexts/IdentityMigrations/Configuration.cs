@@ -1,3 +1,4 @@
+using System.Diagnostics;
 using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.EntityFramework;
 using NLog;
@@ -20,8 +21,6 @@ namespace Tms.Web.DAL.DataContexts.IdentityMigrations
 
         protected override void Seed(Tms.Web.DAL.DataContexts.IdentityDb context)
         {
-            var logger = LogManager.GetCurrentClassLogger();
-            logger.Debug("Seeding Identity DB");
 
             if (!(context.Users.Any(u => u.UserName == "admin@tms.com")))
             {
@@ -29,6 +28,25 @@ namespace Tms.Web.DAL.DataContexts.IdentityMigrations
                 var userManager = new UserManager<ApplicationUser>(userStore);
                 var userToInsert = new ApplicationUser { UserName = "admin@tms.com", PhoneNumber = "01212342345" };
                 userManager.Create(userToInsert, "Password@456");
+            }
+
+            if (!context.Roles.Any(r => r.Name == "AppUser"))
+            {
+                var store = new RoleStore<IdentityRole>(context);
+                var manager = new RoleManager<IdentityRole>(store);
+                var role = new IdentityRole { Name = "AppUser" };
+
+                manager.Create(role);
+            }
+
+            if (!context.Users.Any(u => u.UserName == "user"))
+            {
+                var store = new UserStore<ApplicationUser>(context);
+                var manager = new UserManager<ApplicationUser>(store);
+                var user = new ApplicationUser { UserName = "user" };
+
+                manager.Create(user, "userPassword1!");
+                manager.AddToRole(user.Id, "AppUser");
             }
 
             //  This method will be called after migrating to the latest version.
